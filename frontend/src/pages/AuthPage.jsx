@@ -35,90 +35,94 @@ export default function AuthPage() {
   return (
     <div className="page-auth">
       <div className="auth-card">
-        <div className="auth-logo">🌱</div>
-        <h1 className="auth-title">Habit Tracker</h1>
-        <p className="auth-subtitle">Ваш дневник ежедневных привычек</p>
+        {/* Top gradient bar is rendered via CSS ::before */}
+        <div className="auth-card-inner">
+          <span className="auth-logo">🌱</span>
+          <h1 className="auth-title">Habit Tracker</h1>
+          <p className="auth-subtitle">Маленькие шаги к большим переменам</p>
 
-        <div className="auth-tabs">
-          <button
-            className={`auth-tab${mode === 'login' ? ' active' : ''}`}
-            onClick={() => switchMode('login')}
-            type="button"
-          >
-            Вход
-          </button>
-          <button
-            className={`auth-tab${mode === 'register' ? ' active' : ''}`}
-            onClick={() => switchMode('register')}
-            type="button"
-          >
-            Регистрация
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label" htmlFor="username">
-              Имя пользователя
-            </label>
-            <input
-              id="username"
-              className="form-input"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="например, ivan_petrov"
-              autoComplete="username"
-              autoCapitalize="none"
-              required
-              minLength={3}
-              maxLength={64}
-            />
-            {mode === 'register' && (
-              <span className="form-hint">3–64 символа, буквы, цифры, _</span>
-            )}
+          <div className="auth-tabs">
+            <button
+              className={`auth-tab${mode === 'login' ? ' active' : ''}`}
+              onClick={() => switchMode('login')}
+              type="button"
+            >
+              Войти
+            </button>
+            <button
+              className={`auth-tab${mode === 'register' ? ' active' : ''}`}
+              onClick={() => switchMode('register')}
+              type="button"
+            >
+              Регистрация
+            </button>
           </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="password">
-              Пароль
-            </label>
-            <input
-              id="password"
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={mode === 'register' ? 'Минимум 6 символов' : ''}
-              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-              required
-              minLength={mode === 'register' ? 6 : 1}
-            />
-          </div>
-
-          {error && (
-            <div className="error-banner" role="alert">
-              {error}
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="username">
+                Имя пользователя
+              </label>
+              <input
+                id="username"
+                className="form-input"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="например, ivan_petrov"
+                autoComplete="username"
+                autoCapitalize="none"
+                required
+                minLength={3}
+                maxLength={64}
+              />
+              {mode === 'register' && (
+                <span className="form-hint">3–64 символа, буквы, цифры, _</span>
+              )}
             </div>
-          )}
 
-          <button
-            className="btn btn-primary btn-block"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <span className="spinner spinner-sm" />
-                Загрузка...
-              </>
-            ) : mode === 'login' ? (
-              'Войти'
-            ) : (
-              'Зарегистрироваться'
+            <div className="form-group">
+              <label className="form-label" htmlFor="password">
+                Пароль
+              </label>
+              <input
+                id="password"
+                className="form-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={mode === 'register' ? 'Минимум 6 символов' : ''}
+                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                required
+                minLength={mode === 'register' ? 6 : 1}
+              />
+            </div>
+
+            {error && (
+              <div className="error-banner" role="alert" style={{ marginBottom: 16 }}>
+                {error}
+              </div>
             )}
-          </button>
-        </form>
+
+            <button
+              className="btn btn-primary btn-block"
+              type="submit"
+              disabled={loading}
+              style={{ marginTop: 4 }}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner spinner-sm" />
+                  Загрузка...
+                </>
+              ) : mode === 'login' ? (
+                'Войти →'
+              ) : (
+                'Создать аккаунт →'
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

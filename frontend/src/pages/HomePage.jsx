@@ -98,6 +98,13 @@ export default function HomePage() {
           <span className="header-logo">🌱 Habit Tracker</span>
           <div className="header-right">
             <span className="header-username">{username}</span>
+            <div
+              className="header-avatar"
+              aria-hidden="true"
+              title={username}
+            >
+              {username ? username[0].toUpperCase() : '?'}
+            </div>
             <button className="btn btn-ghost btn-sm" onClick={logout}>
               Выйти
             </button>
@@ -109,22 +116,30 @@ export default function HomePage() {
         <div className="container">
 
           {/* Progress summary */}
-          {!loading && !loadError && habits.length > 0 && (
-            <div className="progress-bar-wrap">
-              <div className="progress-bar-labels">
-                <span>Сегодня выполнено</span>
-                <span className="progress-count">
-                  {doneCount} / {habits.length}
-                </span>
+          {!loading && !loadError && habits.length > 0 && (() => {
+            const allDone = doneCount === habits.length;
+            const pct = Math.round((doneCount / habits.length) * 100);
+            return (
+              <div className={`progress-bar-wrap${allDone ? ' progress-bar-wrap--full' : ''}`}>
+                <div className="progress-bar-labels">
+                  <span>
+                    Сегодня выполнено
+                    {allDone && <span className="all-done-badge"> — всё готово! 🎉</span>}
+                  </span>
+                  <span className="progress-count">
+                    {doneCount} / {habits.length}
+                    <span className="progress-pct"> {pct}%</span>
+                  </span>
+                </div>
+                <div className="progress-bar-track">
+                  <div
+                    className="progress-bar-fill"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
               </div>
-              <div className="progress-bar-track">
-                <div
-                  className="progress-bar-fill"
-                  style={{ width: `${(doneCount / habits.length) * 100}%` }}
-                />
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Push notifications opt-in */}
           <PushNotifications />
