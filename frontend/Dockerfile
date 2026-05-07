@@ -1,6 +1,18 @@
+# ── Stage 1: build React app ───────────────────────────────────────────────
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package.json ./
+RUN npm install --silent
+
+COPY . .
+RUN npm run build
+
+# ── Stage 2: serve with Nginx + proxy ──────────────────────────────────────
 FROM nginx:1.27-alpine
 
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY index.html /usr/share/nginx/html/index.html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80

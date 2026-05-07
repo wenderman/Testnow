@@ -20,6 +20,13 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://habits_user:changeme@db:5432/habits}
       SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      # VAPID — required for push notifications; leave empty to disable push
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY:-}
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-}
+      VAPID_EMAIL: ${VAPID_EMAIL:-admin@example.com}
+      # Reminder scheduler (UTC time); set REMINDER_HOUR=-1 to disable
+      REMINDER_HOUR: ${REMINDER_HOUR:-8}
+      REMINDER_MINUTE: ${REMINDER_MINUTE:-0}
     depends_on:
       db:
         condition: service_healthy

@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Habit Tracker</title>
-  <style>
-    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f4f8; }
-    .card { background: white; padding: 2rem 3rem; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.1); text-align: center; }
-    h1 { color: #2d3748; }
-    p { color: #718096; }
-    .status { margin-top: 1.5rem; padding: .5rem 1rem; border-radius: 6px; background: #ebf8ff; color: #2b6cb0; font-size: .9rem; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Habit Tracker</h1>
-    <p>Ваш персональный трекер ежедневных привычек</p>
-    <div class="status" id="status">Проверка API...</div>
-  </div>
-  <script>
-    fetch('/api/health')
-      .then(r => r.json())
-      .then(d => { document.getElementById('status').textContent = 'API: ' + d.status; })
-      .catch(() => { document.getElementById('status').textContent = 'API недоступен'; });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Tracker 🌱</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

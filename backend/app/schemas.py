@@ -43,3 +43,13 @@ class CompletionOut(BaseModel):
     completed_date: date
 
     model_config = {"from_attributes": True}
+
+
+class PushSubscriptionCreate(BaseModel):
+    endpoint: str
+    p256dh: str
+    auth: str
+
+
+class PushUnsubscribeRequest(BaseModel):
+    endpoint: str
