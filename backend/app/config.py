@@ -11,3 +11,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 VAPID_PRIVATE_KEY: str = os.environ.get("VAPID_PRIVATE_KEY", "").replace("\\n", "\n")
 VAPID_PUBLIC_KEY: str = os.environ.get("VAPID_PUBLIC_KEY", "")
 VAPID_EMAIL: str = os.environ.get("VAPID_EMAIL", "admin@example.com")
+
+# Daily reminder schedule (UTC). Set REMINDER_HOUR=-1 to disable.
+REMINDER_HOUR: int = int(os.environ.get("REMINDER_HOUR", "8"))
+REMINDER_MINUTE: int = int(os.environ.get("REMINDER_MINUTE", "0"))

@@ -144,3 +144,22 @@ def send_test_notification(
         db.commit()
 
     return {"sent": sent, "stale_removed": len(stale_ids)}
+
+
+# ── Trigger reminder job manually (useful for testing / admin) ──────────────
+
+@router.post("/send-reminders")
+def trigger_reminders(
+    user: models.User = Depends(get_current_user),
+):
+    """
+    Run the daily reminder job immediately for the current user's perspective.
+    Useful for verifying the full push pipeline without waiting for the cron.
+    """
+    _require_vapid()
+    from app.scheduler import send_daily_reminders  # noqa: PLC0415
+
+    import threading
+    t = threading.Thread(target=send_daily_reminders, daemon=True)
+    t.start()
+    return {"status": "reminder job triggered"}
