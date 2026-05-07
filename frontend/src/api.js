@@ -64,4 +64,15 @@ export const api = {
     if (habitId !== null) params.set('habit_id', String(habitId));
     return request('GET', `/completions?${params}`);
   },
+
+  // ── Push notifications ────────────────────────────────────────────────────
+  getVapidKey: () => request('GET', '/push/vapid-public-key'),
+
+  pushSubscribe: ({ endpoint, p256dh, auth }) =>
+    request('POST', '/push/subscribe', { endpoint, p256dh, auth }),
+
+  pushUnsubscribe: (endpoint) =>
+    request('DELETE', '/push/subscribe', { endpoint }),
+
+  pushTest: () => request('POST', '/push/test'),
 };

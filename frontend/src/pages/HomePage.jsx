@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
 import HabitItem from '../components/HabitItem.jsx';
+import PushNotifications from '../components/PushNotifications.jsx';
 
 function getLocalToday() {
   const d = new Date();
@@ -124,6 +125,9 @@ export default function HomePage() {
               </div>
             </div>
           )}
+
+          {/* Push notifications opt-in */}
+          <PushNotifications />
 
           {/* Add habit */}
           {!showAddForm ? (

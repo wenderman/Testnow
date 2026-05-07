@@ -3,12 +3,14 @@ from fastapi.responses import JSONResponse
 from app.routers.auth import router as auth_router
 from app.routers.habits import router as habits_router
 from app.routers.completions import router as completions_router
+from app.routers.push import router as push_router
 
 app = FastAPI(title="Habit Tracker API", version="0.1.0")
 
 app.include_router(auth_router)
 app.include_router(habits_router)
 app.include_router(completions_router)
+app.include_router(push_router)
 
 
 @app.get("/health", tags=["system"])
