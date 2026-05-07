@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, DateTime, Date, ForeignKey, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -39,9 +39,14 @@ class HabitCompletion(Base):
     id = Column(Integer, primary_key=True)
     habit_id = Column(Integer, ForeignKey("habits.id", ondelete="CASCADE"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    completed_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    # Calendar date in the user's local timezone (client-supplied); no time component.
+    completed_date = Column(Date, nullable=False)
 
     habit = relationship("Habit", back_populates="completions")
+
+    __table_args__ = (
+        UniqueConstraint("habit_id", "completed_date", name="uq_habit_completions"),
+    )
 
 
 class PushSubscription(Base):

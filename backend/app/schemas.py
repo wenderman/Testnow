@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel, Field
 
 
@@ -27,5 +27,19 @@ class HabitOut(BaseModel):
     name: str
     description: str | None
     created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class CompletionCreate(BaseModel):
+    date: date
+    # Minutes east of UTC (e.g. UTC+3 → 180, UTC-5 → -300).
+    # Used only to determine "today" for the future-date guard; not stored.
+    utc_offset_minutes: int = Field(0, ge=-720, le=840)
+
+
+class CompletionOut(BaseModel):
+    habit_id: int
+    completed_date: date
 
     model_config = {"from_attributes": True}
